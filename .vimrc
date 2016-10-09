@@ -1,8 +1,5 @@
 set nocompatible
 
-" Function MySys()
-"source $VIMRUNTIME/mysys.vim
-
 function! MySys()
   return "macos"
 endfunction
@@ -66,10 +63,12 @@ set shellpipe=2>&1\|\ tee
 set smartcase
 set whichwrap+=h,l
 set mouse=a
-"set cul
-"set cuc
 set colorcolumn=80
 set clipboard=unnamed
+" set encoding
+set fileencodings=utf-8,gb2312
+"set foldmethod
+set foldlevel=1000
 
 "set color scheme
 if ! has("gui_running")
@@ -77,7 +76,6 @@ if ! has("gui_running")
 endif
 set background=dark
 colors peaksea
-"colors solarized
 
 " Enable file type detection
 filetype plugin indent on
@@ -109,10 +107,11 @@ autocmd InsertLeave *.py,*.hpp,*.cc,*.c,*.h write " autosave
 autocmd InsertLeave *.hpp,*.cc,*.c,*.h TlistUpdate "Update tags
 
 if has("gui_running")
+	" with bottom scroll bar
 	set guioptions+=b
+	" with right-hannd scroll bar
 	set guioptions-=r
 endif
-
 
 nnoremap <CR> :nohlsearch<CR><CR>
 nnoremap <leader>ru :MRU<CR>
@@ -133,10 +132,14 @@ nnoremap <leader>h *<C-O>
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<cr>
 " Retab and Format the File with Spaces
 nnoremap <leader>T :set expandtab<cr>:retab!<cr>
-" absolute line numbers in insert mode, relative otherwise for easy movement
-"au InsertEnter * :set nu
-"au InsertLeave * :set rnu
 nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+
+" enable C-J,K,L,H to switch windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
 
 if MySys()=="macos"
 	map <D-0> :w<CR>
@@ -150,8 +153,6 @@ if MySys()=="macos"
 	inoremap <D-j> <ESC>
 	if has('gui_macvim')
 		" try :h gestures in MacVim
-		"nnoremap <silent> <SwipeLeft> :macaction _cycleWindowsBackwards:<CR>
-		"nnoremap <silent> <SwipeRight> :macaction _cycleWindows:<CR>
 		nnoremap <silent> <SwipeLeft> :bN<CR>
 		nnoremap <silent> <SwipeRight> :bn<CR>
 		set macmeta
@@ -166,14 +167,6 @@ else
 	inoremap <M-j> <ESC>
 endif
 
-
-" set encoding
-set fileencodings=utf-8,gb2312
-
-"set foldmethod
-"autocmd FileType c,cpp  setl fdm=syntax | setl fen
-set foldlevel=1000
-
 "yank/paste to/from register b
 nmap <leader>y "by
 nmap <leader>p "bp
@@ -181,6 +174,10 @@ vmap <leader>y "by
 vmap <leader>p "bp
 vmap <C-a>     "+y
 nnoremap <C-a> "+p
+
+if !exists(':CDP')
+	command -nargs=0 CDP :silent call ChangeCurrDir()
+endif
 
 " Taglist
 "let Tlist_Show_One_File=1
@@ -221,55 +218,33 @@ let g:alternateNoDefaultAlternate = 0
 " cscope setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("cscope")
-  "set csprg=/usr/bin/cscope
-  set csto=1
-  set cst
-  set nocsverb
-  " add any database in current directory
-  if filereadable("cscope.out")
-	  cs add cscope.out
-  endif
-  "if filereadable("c:\\boost\\boost_1_35_0\\cscope.out")
-	  "cs add c:\boost\boost_1_35_0\cscope.out
-  "endif
-  set csverb
-endif
-command -nargs=0 BoostTag call LoadBoostTags()
-func LoadBoostTags()
-	if MySys()=="windows"
-		if filereadable("c:\\boost\\boost_1_35_0\\cscope.out")
-			cs add c:\boost\boost_1_35_0\cscope.out
-  		endif
-		if filereadable("c:\\boost\\boost_1_35_0\\boost\\asio\\tags")
-			set tags+=c:\boost\boost_1_35_0\boost\asio\tags
-		endif
+	set csto=1
+	set cst
+	set nocsverb
+	" add any database in current directory
+	if filereadable("cscope.out")
+		cs add cscope.out
 	endif
-endfunc
+	set csverb
 
-nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+	nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+	nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+	nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+	nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+	nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+	nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+	nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+	nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+endif
 
 map <C-F12> :!ctags -R --c++-kinds=+p --fields=+ialS --extra=+q
-"map <C-F12> :!ctags -R --fields=+ialS --extra=+q .<CR>
 map <S-F12> :!cscope -b <CR>
-
 
 func SetTags()
 	set tags=./tags,tags
 
 	if MySys()=="linux"
 		set tags+=/home/wangdq/tags/systags
-		" The following lines are for NS2, because I sometimes work in a subdir of NS_HOME
-		" and sometimes work in NS_HOME and my self-created files are in ./p2pvod
-		if filereadable("p2pvod/tags")
-			set tags+=p2pvod/tags
-		endif
 		if filereadable("../tags")
 			set tags+=../tags
 		endif
@@ -279,13 +254,6 @@ call SetTags()
 
 " Disable preview window of completion
 set completeopt=longest,menu
-
-" enable C-J,K,L,H to switch windows
-
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
 
 " MiniBufExplorerlet g:miniBufExplMapWindowNavVim = 1
 map <Leader>bt :TMiniBufExplorer<cr>
@@ -354,21 +322,6 @@ nmap <silent> <leader>mk :MarksBrowser<cr>
 """"""""""""""""""""""""""""""
 let g:NERDMapleader=',n'
 let g:NERDShutUp=1
-
-function ChangeCurrDir()
-	let _dir = expand("%:p:h")
-	exec "cd " . _dir
-	unlet _dir
-endfunction
-
-if !exists(':CDP')
-	command -nargs=0 CDP :silent call ChangeCurrDir()
-endif
-
-"map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-
-" session manager
-let g:session_menu = '&Plugin.session'
 
 " previewtag
 " make the preview window not appear with vim start
@@ -584,7 +537,7 @@ nmap <leader>ste :call s:EnableSupertab()<cr>
 
 " default: diable supertab and use acp
 let g:loaded_supertab = 1
-" wangdq add this flag to avoid loading supertab.vim multiple times
+" to avoid loading supertab.vim multiple times
 let g:enabled_supertab = 0
 " diable acpand use supertab
 function! s:EnableSupertab()
@@ -680,6 +633,12 @@ function s:SetMarkDownEnv()
 	set textwidth=80
 endfunction
 
+function ChangeCurrDir()
+	let _dir = expand("%:p:h")
+	exec "cd " . _dir
+	unlet _dir
+endfunction
+
 " File preambles
 
 func AddHexPreamble()
@@ -721,6 +680,3 @@ func AddCPreamble()
 endfunc
 
 " End of file preambles
-
-
-
