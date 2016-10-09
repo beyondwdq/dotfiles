@@ -1,0 +1,25 @@
+git://github.com/tpope/vim-pathogen.git
+#https://github.com/scrooloose/syntastic.git
+#https://github.com/Rip-Rip/clang_complete.git
+git://github.com/ivanov/vim-ipython.git
+#hg https://bitbucket.org/agr/ropevim
+git://github.com/klen/python-mode.git
+git://github.com/kien/ctrlp.vim.git
+git://github.com/tpope/vim-surround.git
+git://github.com/godlygeek/tabular.git
+#git://github.com/vim-scripts/TxtBrowser.git
+#git://github.com/vim-scripts/Decho.git
+git://github.com/flazz/vim-colorschemes.git
+git://github.com/mbbill/echofunc.git
+git://github.com/fholgado/minibufexpl.vim.git
+#git://github.com/Lokaltog/vim-easymotion.git
+git://github.com/vim-scripts/Marks-Browser.git
+git://github.com/terryma/vim-expand-region.git
+https://github.com/SirVer/ultisnips.git
+https://github.com/honza/vim-snippets.git
+https://github.com/octol/vim-cpp-enhanced-highlight.git
+https://github.com/vim-scripts/winmanager.git
+https://github.com/vim-scripts/a.vim
+https://github.com/vim-scripts/taglist.vim.git
+https://github.com/tpope/vim-fugitive.git
+https://github.com/vim-airline/vim-airline.git
