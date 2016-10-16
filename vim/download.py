@@ -27,11 +27,9 @@ def get_command_for_url(url):
     if protocol in cmdprot_mapping:
         cmd = cmdprot_mapping[protocol]
     else:
-        subfixes = url.split('.')
-        if len(subfixes) > 1:
-            subfix = subfixes[-1]
-            if subfix in cmdprot_mapping:
-                cmd = cmdprot_mapping[subfix]
+        subfix = url.rsplit('.', 1)[-1]
+        if subfix in cmdprot_mapping:
+            cmd = cmdprot_mapping[subfix]
 
     return cmd
 
@@ -48,8 +46,13 @@ def update_repos(cmd, dirname):
     subprocess.call(full_cmd, cwd=dirname)
 
 
+def rm_suffix(s, suffix):
+    return s[:-len(suffix)] if s.endswith(suffix) else s
+
+
 def get_dirname(url):
-    return ".".join(url.split('/')[-1].split('.')[0:-1])
+    dirname = url.split('/')[-1]
+    return rm_suffix(dirname, '.git')
 
 
 def run_scripts(dirname):
@@ -62,43 +65,58 @@ def run_scripts(dirname):
         subprocess.call([script_path, dirpath])
 
 
-def line_to_dict(line, sep1=None, sep2=':'):
-    mapping = {}
-    items = line.split(sep1)
-    for item in items:
-        k, v = item.split(sep2)
-        mapping[k] = v
-    return mapping
+def parse_line(line):
+    items = line.split()
+    cmd = url = None
+    if (len(items) == 2):
+        cmd, url = items
+    elif(len(items) == 1):
+        url = items[0]
+        cmd = get_command_for_url(url)
+    else:
+        raise ValueError("Invalid line: %s" % line)
+    return cmd, url
 
 
-def main():
+def show_stats(update, cloned, updated, skipped):
+    print "Number cloned:%s" % len(cloned)
 
-    update = False
-    if len(sys.argv) == 2 and sys.argv[1] == "-u":
-        update = True
+    if (len(cloned)):
+        print "\t\n".join(cloned)
 
+    if update:
+        print "Number updated:%s" % len(updated)
+        if (len(updated)):
+            print "\t\n".join(updated)
+    else:
+        print "Number skipped:%s" % len(skipped)
+        if (len(skipped)):
+            print "\t\n".join(skipped)
+
+
+def load_lines(filename):
+    with open(filename, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#'):
+                yield line
+
+
+def bundle_exists(dirname):
+    return os.path.exists(dirname)
+
+
+def run(update=False):
     cloned = []
     updated = []
     skipped = []
-    for line in open("repos_urls.txt"):
-        line = line.strip()
-        if not line or line.startswith('#'):
-            continue
-        items = line.split()
-        cmd = None
-        url = None
-        if (len(items) == 2):
-            cmd, url = items
-        elif(len(items) == 1):
-            url = items[0]
-            cmd = get_command_for_url(url)
-        else:
-            print >>sys.stderr, "Invalid line: %s" % line
-            sys.exit(1)
 
+    for line in load_lines("repos_urls.txt"):
+        cmd, url = parse_line(line)
         dirname = get_dirname(url)
+
         do_run_script = False
-        if os.path.exists(dirname):
+        if bundle_exists(dirname):
             if update:
                 print "Updating %s in dir:%s" % (url, dirname)
                 update_repos(cmd, dirname)
@@ -118,18 +136,16 @@ def main():
 
         print ""
 
-    print "Number cloned:%s" % len(cloned)
-    if (len(cloned)):
-        print "\t\n".join(cloned)
+    show_stats(update, cloned, updated, skipped)
 
-    if update:
-        print "Number updated:%s" % len(updated)
-        if (len(updated)):
-            print "\t\n".join(updated)
-    else:
-        print "Number skipped:%s" % len(skipped)
-        if (len(skipped)):
-            print "\t\n".join(skipped)
+
+def main():
+
+    update = False
+    if len(sys.argv) == 2 and sys.argv[1] == "-u":
+        update = True
+
+    run(update=update)
 
 if __name__ == '__main__':
     main()
