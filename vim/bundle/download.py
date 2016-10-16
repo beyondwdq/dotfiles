@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#----------------------------------------------------------------------
-# File name: download.py
-# Author: Wang Danqi
-# Creation Date: Fri Mar 23 13:14:53 2012
-#----------------------------------------------------------------------
-
 import os
 import sys
 import subprocess
