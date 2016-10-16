@@ -1,16 +1,21 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 set nocompatible
 
-function! MySys()
-  return "macos"
-endfunction
+" set g:os to either Windows, Linux or Darwin
+if !exists("g:os")
+    if has("win64") || has("win32") || has("win16")
+        let g:os = "Windows"
+    else
+        let g:os = substitute(system('uname'), '\n', '', '')
+    endif
+endif
 
 " pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 call pathogen#helptags()
 
-if MySys() == "windows"
+if g:os == "Windows"
   source $VIMRUNTIME/vimrc_example.vim
   source $VIMRUNTIME/mswin.vim
   behave mswin
@@ -227,7 +232,7 @@ endif
 
 " }
 
-if MySys()=="macos"
+if g:os=="Darwin"
 	map <D-0> :w<CR>
 	map <D-9> :set foldlevel=1000<CR>
 	map <D-8> :set nowrap!<CR>
@@ -327,7 +332,7 @@ endif
 		func SetTags()
 			set tags=./tags,tags
 
-			if MySys()=="linux"
+			if g:os=="Linux"
 				set tags+=/home/wangdq/tags/systags
 				if filereadable("../tags")
 					set tags+=../tags
@@ -427,7 +432,7 @@ endif
 		  if g:guiTweaked == 0
 			let g:guiTweaked = 1
 			"simalt ~x
-			if MySys() != "macos"
+			if g:os != "Darwin"
 				set go-=m
 			endif
 			set go-=T
@@ -443,7 +448,7 @@ endif
 		  endif
 		endfunction
 
-		if MySys() == "macos"
+		if g:os == "Darwin"
 			call TweakGUI()
 		endif
 	endif
@@ -460,15 +465,15 @@ endif
 			"setting python-mode
 			let g:pymode_doc_key = 'K'
 
-			if MySys() == "windows"
+			if g:os == "Windows"
 				"source d:\vimfiles\python.vim
 				set complete+=kd:\vimfiles\pydiction isk+=.,(
 				map <F12> <ESC>:!"c:\Python25\python.exe" %<CR>
-			elseif MySys() == "linux"
+			elseif g:os == "Linux"
 				"source ~/vimfiles/python.vim
 				"set complete+=k~/vimfiles/pydiction isk+=.,(
 				map <F12> <ESC>:!"python" %<CR>
-			elseif MySys() == "macos"
+			elseif g:os == "Darwin"
 				"source ~/vimfiles/python.vim
 				"set complete+=k~/vimfiles/pydiction isk+=.,(
 				map <F12> <ESC>:!"python" %<CR>
@@ -536,7 +541,7 @@ endif
 		func! ViewCompiledPdf()
 			let _pdffile=expand("%:r") . ".pdf"
 			if filereadable(_pdffile)
-				if MySys()=="macos"
+				if g:os=="Darwin"
 					exec "!open " . _pdffile . "&"
 				else
 					exec "!evince " . _pdffile . "&"
