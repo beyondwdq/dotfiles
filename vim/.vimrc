@@ -589,8 +589,6 @@ endif
 			" program to alway generate a file-name.
 			set grepprg=grep\ -nH\ $*
 
-			source ~/.vim/ftplugin/tex_latexSuite.vim
-
 			if has('gui_running')
 				imap <buffer> <silent> <C-k> <Plug>Tex_Completion
 			else
