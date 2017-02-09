@@ -81,6 +81,7 @@ endif
 	" GUI {
 		if ! has("gui_running")
 			set t_Co=256
+        else
 			" with bottom scroll bar
 			set guioptions+=b
 			" with right-hannd scroll bar
@@ -88,12 +89,16 @@ endif
 
 			map <F11> :call TweakGUI()<cr>
 
+            if g:os == "Windows"
+                set guifont=Consolas:h11:cANSI
+            endif
+
 		endif
 	" }
 
 	" color scheme {
 		set background=dark
-		colors peaksea
+		colors solarized
 	" }
 	"
 	" Disable preview window of completion
@@ -167,9 +172,14 @@ endif
 	" }
 
 	" Quick editting of vim configurations {
+    if g:os == "Windows"
+		nmap <silent> <leader>vs :source ~/_vimrc<cr>
+		nmap <silent> <leader>ve :e ~/_vimrc<cr>
+    else
 		nmap <silent> <leader>vs :source ~/.vimrc<cr>
 		nmap <silent> <leader>ve :e ~/.vimrc<cr>
-		nmap <silent> <leader>ce :e ~/.vim/snippets/cpp.snippets<cr>
+    endif
+    nmap <silent> <leader>ce :e ~/.vim/snippets/cpp.snippets<cr>
 	" }
 
 	" Omini complete {
@@ -348,7 +358,11 @@ endif
 
 	" ctrlp {
 		let g:ctrlp_map = '<leader>t'
-		set wildignore+=*.so,*.swp,*.zip,*.o,*.d,pnl/*
+        if g:os == "Windows"
+            set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\build\\**,*\\opt\\googletest\\**  " Windows ('noshellslash')
+        else
+            set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/build/        " Linux/MacOSX
+        endif
 		let g:ctrlp_working_path_mode = 'r'
 		nmap <silent> <leader>b :CtrlPBuffer<cr>
 	" }
@@ -493,8 +507,8 @@ endif
 			set wrap
 			set textwidth=0
 			set expandtab
-			set ts=2	"tab stop
-			set sw=2	"shift width
+			set ts=4	"tab stop
+			set sw=4	"shift width
 			set errorformat^=%-GIn\ file\ included\ from\ %f:%l:%c:,%-GIn\ file\ included\ from\ %f:%l:%c%m,
 			"call s:LoadFlyMake()
 		endfunction
@@ -639,15 +653,19 @@ endif
 		func AddCHeaderDefine()
 
 			" Starting from line 11 since the Preamble ends at line 9."
-			let s:lname = strpart(expand("%"),eval(1 + strridx(expand("%"), "/")))
+            if g:os == "Windows"
+                let s:lname = strpart(expand("%"),eval(1 + strridx(expand("%"), "\\")))
+            else
+                let s:lname = strpart(expand("%"),eval(1 + strridx(expand("%"), "/")))
+            endif
 			let s:label = toupper(substitute(s:lname, "\\.", "_", ""))."_"
-			call append(11, "#ifndef ".s:label)
-			call append(12, "#define ".s:label)
-			call append(13, "")
-			call append(14, "")
-			call append(15, "")
-			call append(16, "")
-			call append(17, "#endif")
+			call append(0, "#ifndef ".s:label)
+			call append(1, "#define ".s:label)
+			call append(2, "")
+			call append(3, "")
+			call append(4, "")
+			call append(5, "")
+			call append(6, "#endif")
 
 		endfunc
 
