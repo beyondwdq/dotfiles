@@ -81,6 +81,7 @@ endif
 	" GUI {
 		if ! has("gui_running")
 			set t_Co=256
+            let g:solarized_termcolors=256
         else
 			" with bottom scroll bar
 			set guioptions+=b
@@ -387,8 +388,8 @@ endif
 	" }
 
 	" NERD_Commenter.vim {
-		let g:NERDMapleader=',n'
-		let g:NERDShutUp=1
+		"let g:NERDMapleader=',n'
+		"let g:NERDShutUp=1
 	" }
 
 	" previewtag {

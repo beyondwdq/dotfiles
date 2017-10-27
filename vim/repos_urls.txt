@@ -24,5 +24,6 @@ https://github.com/vim-scripts/a.vim
 https://github.com/vim-scripts/taglist.vim.git
 https://github.com/tpope/vim-fugitive.git
 https://github.com/vim-airline/vim-airline.git
-https://github.com/vim-latex/vim-latex.git
+#https://github.com/vim-latex/vim-latex.git
 git://github.com/uarun/vim-protobuf.git
+https://github.com/scrooloose/nerdcommenter.git
