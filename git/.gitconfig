@@ -1,0 +1,9 @@
+[alias]
+	br = branch
+	ci = commit
+	st = status -uno
+[push]
+	default = simple
+
+[include]
+    path = .gitconfig.local
