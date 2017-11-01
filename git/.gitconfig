@@ -1,7 +1,8 @@
 [alias]
 	br = branch
 	ci = commit
-	st = status -uno
+	st = status
+	stu = status -uno
 [push]
 	default = simple
 
