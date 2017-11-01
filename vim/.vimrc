@@ -78,6 +78,10 @@ endif
 	" Enable file type detection
 	filetype plugin indent on
 
+    " Session {
+        set sessionoptions=buffers
+    " }
+
 	" GUI {
 		if ! has("gui_running")
 			set t_Co=256
@@ -221,6 +225,11 @@ endif
 			au BufRead,BufNewFile *.txt setfiletype txt
 		augroup END
 	" }
+    " skip quickfix in buflist. help 'buflisted'
+    augroup qf
+        autocmd!
+        autocmd FileType qf set nobuflisted
+    augroup END
 
 	" Work Enviroment setup {
 		if has("autocmd")
@@ -363,6 +372,10 @@ endif
             set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\build\\**,*\\opt\\googletest\\**  " Windows ('noshellslash')
         else
             set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/build/        " Linux/MacOSX
+            let g:ctrlp_custom_ignore = {
+                \ 'dir':  '\v[\/]build$',
+                \ 'file': '\v\.(exe|so|dll)$',
+                \ }
         endif
 		let g:ctrlp_working_path_mode = 'r'
 		nmap <silent> <leader>b :CtrlPBuffer<cr>
@@ -688,3 +701,10 @@ endif
 	" }
 
 " }
+"
+func! SourceLocalVimrc()
+    if filereadable(glob("~/.vimrc.local")) 
+        source ~/.vimrc.local
+    endif
+endfunc
+call SourceLocalVimrc()
