@@ -103,7 +103,8 @@ endif
 
 	" color scheme {
 		set background=dark
-		colors solarized
+		" colors solarized
+		colors gruvbox
 	" }
 	"
 	" Disable preview window of completion
@@ -312,6 +313,13 @@ endif
 			endif
 		endfunc
 	" }
+    "
+    " { NERDTree
+        map <C-n> :NERDTreeToggle<CR>
+        " close vim if only NERDTree window
+        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+        let NERDTreeWinSize=40
+    " }
 
 	" UltiSnips {
 		" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
