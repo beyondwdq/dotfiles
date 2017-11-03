@@ -123,6 +123,15 @@ endif
 	" select all text in current buffer
 	map <Leader>a ggVG
 	nmap <tab> v$=<esc>
+    " Window resizing {
+    " basic key maps: Ctrl-w +-<>_|
+    " resize by steps: Ctrl-w 10 +
+    " maximize: Crl-w |
+        nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+        nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+        nnoremap <silent> <Leader>> :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+        nnoremap <silent> <Leader>< :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
+    " }
 
 	" Better command mode editing {
 		" down arrow
