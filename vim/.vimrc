@@ -124,6 +124,7 @@ endif
 	map <Leader>a ggVG
 	nmap <tab> v$=<esc>
     " Window resizing {
+    "http://vim.wikia.com/wiki/Resize_splits_more_quickly
     " basic key maps: Ctrl-w +-<>_|
     " resize by steps: Ctrl-w 10 +
     " maximize: Crl-w |
