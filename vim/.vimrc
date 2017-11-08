@@ -326,6 +326,8 @@ endif
     "
     " { NERDTree
         map <C-n> :NERDTreeToggle<CR>
+        " find the current buffer in nerd tree
+        map <leader>nf :NERDTreeFind<cr>
         " close vim if only NERDTree window
         autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
         let NERDTreeWinSize=40
@@ -339,7 +341,7 @@ endif
 	" }
 
 	" a.vim {
-		let g:alternateNoDefaultAlternate = 0
+		let g:alternateNoDefaultAlternate = 1
 	" }
 
 	" CScope & tags settings {
@@ -385,7 +387,7 @@ endif
 	"let g:miniBufExplMapWindowNavArrows = 1
 
 	" ctrlp {
-		let g:ctrlp_map = '<leader>t'
+		let g:ctrlp_map = '<C-p>'
         if g:os == "Windows"
             set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*,*\\build\\**,*\\opt\\googletest\\**  " Windows ('noshellslash')
         else
@@ -395,8 +397,10 @@ endif
                 \ 'file': '\v\.(exe|so|dll)$',
                 \ }
         endif
-		let g:ctrlp_working_path_mode = 'r'
-		nmap <silent> <leader>b :CtrlPBuffer<cr>
+        nmap <leader>tf :CtrlP<CR>
+        nmap <leader>tb :CtrlPBuffer<CR>
+        nmap <leader>tm :CtrlPMRU<CR>
+		let g:ctrlp_working_path_mode = 'a'
 	" }
 
 	" showmarks {
