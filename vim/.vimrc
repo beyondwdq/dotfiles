@@ -404,6 +404,8 @@ endif
         nmap <leader>tf :CtrlP<CR>
         nmap <leader>tb :CtrlPBuffer<CR>
         nmap <leader>tm :CtrlPMRU<CR>
+        " this one is frequently used. Give it a shortcut
+        nmap <C-M> :CtrlPMRU<CR>
 		let g:ctrlp_working_path_mode = 'a'
 	" }
 
