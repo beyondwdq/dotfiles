@@ -344,6 +344,8 @@ endif
 
 	" a.vim {
 		let g:alternateNoDefaultAlternate = 1
+        let g:alternateExtensions_ipp = "inc,h,H,HPP,hpp"
+        let g:alternateExtensions_h = "c,cpp,cxx,cc,CC,ipp"
 	" }
 
 	" CScope & tags settings {
