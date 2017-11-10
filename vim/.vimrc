@@ -122,7 +122,6 @@ endif
 	noremap <Leader><Leader> <C-^>
 	" select all text in current buffer
 	map <Leader>a ggVG
-	nmap <tab> v$=<esc>
     " Window resizing {
     "http://vim.wikia.com/wiki/Resize_splits_more_quickly
     " basic key maps: Ctrl-w +-<>_|
@@ -327,12 +326,12 @@ endif
 	" }
     "
     " { NERDTree
-        map <C-n> :NERDTreeToggle<CR>
+        map <leader>nn :NERDTreeToggle<CR>
         " find the current buffer in nerd tree
         map <leader>nf :NERDTreeFind<cr>
         " close vim if only NERDTree window
         autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-        let NERDTreeWinSize=40
+        let NERDTreeWinSize=60
     " }
 
 	" UltiSnips {
@@ -405,7 +404,8 @@ endif
         nmap <leader>tb :CtrlPBuffer<CR>
         nmap <leader>tm :CtrlPMRU<CR>
         " this one is frequently used. Give it a shortcut
-        nmap <C-M> :CtrlPMRU<CR>
+        " NOTE: cannot use <C-M>. It's equivalent to <CR>
+        nmap <tab> :CtrlPMRU<CR>
 		let g:ctrlp_working_path_mode = 'a'
 	" }
 
