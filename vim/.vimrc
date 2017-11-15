@@ -152,6 +152,8 @@ endif
 	nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
     " Copy current buffer file path to system clipboard
     nmap <leader>% :let @+ = expand("%")<CR>
+    " Open dir of current file: http://vimcasts.org/episodes/the-edit-command/
+    cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
 
 	" Window Switching {
 		map <C-j> <C-W>j
