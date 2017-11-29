@@ -22,3 +22,8 @@ if hash vimx 2>/dev/null; then
 	alias vi='vimx'
 	alias vim='vimx'
 fi
+
+if hash xclip 2>/dev/null; then
+	alias pbcopy="xclip -selection c"
+	alias pbpaste="xclip -selection clipboard -o"
+fi
