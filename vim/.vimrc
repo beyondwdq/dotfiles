@@ -553,6 +553,7 @@ endif
 			set expandtab
 			set ts=4	"tab stop
 			set sw=4	"shift width
+            set cino=N-s "no indentation for namespace. :help cinoptions-values
 			set errorformat^=%-GIn\ file\ included\ from\ %f:%l:%c:,%-GIn\ file\ included\ from\ %f:%l:%c%m,
 			"call s:LoadFlyMake()
 		endfunction
