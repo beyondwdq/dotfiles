@@ -306,7 +306,7 @@ endif
 		let Tlist_Exit_OnlyWindow=1
 		let Tlist_Use_Right_Window=1
 		let Tlist_File_Fold_Auto_Close=1
-		nmap <leader>gt :TlistToggle<cr>
+		nmap <leader>tg :TlistToggle<cr>
 	" }
 
 	" WinManager {
@@ -467,6 +467,14 @@ endif
 		endfunction
 
 	" }
+	" fugitive {
+        nnoremap <leader>ga :Git add %:p<CR><CR>
+        nnoremap <leader>gs :Gstatus<CR>
+        nnoremap <leader>gt :Gcommit -v -q %:p<CR>
+        nnoremap <leader>gc :Gcommit -v -q<CR>
+        nnoremap <leader>gd :Gdiff<CR>
+        nnoremap <leader>gp :Gpush<CR>
+    " }
 
 " }
 
