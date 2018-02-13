@@ -27,3 +27,7 @@ if hash xclip 2>/dev/null; then
 	alias pbcopy="xclip -selection c"
 	alias pbpaste="xclip -selection clipboard -o"
 fi
+
+if hash vagrant 2>/dev/null; then
+	alias vssh='vagrant ssh -- -Y'
+fi
