@@ -261,8 +261,8 @@ endif
 	autocmd BufNewFile *.py call AddHexPreamble()
 
 	" Other auto commands
-	autocmd InsertLeave *.py,*.hpp,*.cc,*.c,*.h write " autosave
-	autocmd InsertLeave *.hpp,*.cc,*.c,*.h TlistUpdate "Update tags
+	"autocmd InsertLeave *.py,*.hpp,*.cc,*.c,*.h write " autosave
+	"autocmd InsertLeave *.hpp,*.cc,*.c,*.h TlistUpdate "Update tags
 
 " }
 
