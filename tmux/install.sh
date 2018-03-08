@@ -6,3 +6,4 @@ echo "Fetching tmux plugin manager"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 echo "Linking config"
 ln -sf $srcdir/.tmux.conf $HOME/
+echo "Notice: press Prefix + I in tmux to intall plugins"
