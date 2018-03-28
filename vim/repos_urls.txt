@@ -29,3 +29,4 @@ git://github.com/uarun/vim-protobuf.git
 https://github.com/scrooloose/nerdcommenter.git
 https://github.com/mileszs/ack.vim.git
 https://github.com/scrooloose/nerdtree.git
+https://github.com/yssl/QFEnter.git
