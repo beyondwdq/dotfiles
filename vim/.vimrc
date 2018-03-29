@@ -545,6 +545,9 @@ endif
 				map <F12> <ESC>:!"python" %<CR>
 			endif
 			let g:py_select_leading_comments = 0
+            " E501: line too lone
+            " E722: base except
+            let g:pymode_lint_ignore = "E501,E722"
 		endfunction
 
 		command! -nargs=0 -bar PythonWork call s:SetPythonEnv()
