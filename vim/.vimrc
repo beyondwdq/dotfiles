@@ -450,7 +450,7 @@ endif
 	" autocomplpop {
 		nmap <leader>ace :AcpEnable<cr>
 		nmap <leader>acd :AcpDisable<cr>
-		nmap <leader>ste :call s:EnableSupertab()<cr>
+        " nmap <leader>ste :call s:EnableSupertab()<cr>
 
 		" default: diable supertab and use acp
 		let g:loaded_supertab = 1
