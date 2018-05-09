@@ -70,7 +70,10 @@ endif
 	set whichwrap+=h,l
 	set mouse=a
 	set colorcolumn=80
-	set clipboard=unnamed
+    " https://stackoverflow.com/a/11421329
+    if $TMUX == ''
+        set clipboard=unnamed
+    endif
 	" set encoding
 	set fileencodings=utf-8,gb2312
 	"set foldmethod
