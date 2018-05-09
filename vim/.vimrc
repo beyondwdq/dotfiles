@@ -478,6 +478,9 @@ endif
         nnoremap <leader>gd :Gdiff<CR>
         nnoremap <leader>gp :Gpush<CR>
     " }
+    " Ack {
+        nmap <leader>jj :Ack! -w <C-R>=expand("<cword>")<CR> <C-R>=fnameescape(expand('%:h')).'/'<CR><C-B><C-Right><C-Right><C-Right>
+    " }
 
 " }
 
