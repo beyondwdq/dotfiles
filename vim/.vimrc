@@ -76,7 +76,7 @@ endif
     endif
 	" set encoding
 	set fileencodings=utf-8,gb2312
-	"set foldmethod
+	set foldmethod=syntax " enabling using 'z-a' to see the current function while keeping the cursor position
 	set foldlevel=1000
 	" Enable file type detection
 	filetype plugin indent on
