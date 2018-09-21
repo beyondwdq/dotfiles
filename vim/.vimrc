@@ -10,6 +10,10 @@ if !exists("g:os")
     endif
 endif
 
+" Put plugins and dictionaries in this dir (also on Windows)
+let vimDir = '$HOME/.vim'
+let &runtimepath.=','.vimDir
+
 " pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
@@ -83,6 +87,18 @@ endif
 
     " Session {
         set sessionoptions=buffers
+    " }
+
+    " Undo history {
+        " Keep undo history across sessions by storing it in a file
+        if has('persistent_undo')
+            let myUndoDir = expand(vimDir . '/undodir')
+            " Create dirs
+            call system('mkdir ' . vimDir)
+            call system('mkdir ' . myUndoDir)
+            let &undodir = myUndoDir
+            set undofile
+        endif
     " }
 
 	" GUI {
