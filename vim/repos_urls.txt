@@ -10,7 +10,7 @@ git://github.com/godlygeek/tabular.git
 #git://github.com/vim-scripts/TxtBrowser.git
 #git://github.com/vim-scripts/Decho.git
 git://github.com/flazz/vim-colorschemes.git
-git://github.com/mbbill/echofunc.git
+#git://github.com/mbbill/echofunc.git
 #git://github.com/fholgado/minibufexpl.vim.git
 #git://github.com/Lokaltog/vim-easymotion.git
 git://github.com/vim-scripts/Marks-Browser.git
