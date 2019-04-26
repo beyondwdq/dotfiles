@@ -2,7 +2,8 @@
 
 set -o vi
 # Disable Software Control Flow (Ctrl-s locks screen)
-stty -ixon
+# https://stackoverflow.com/a/25391867/930095
+[[ $- == *i* ]] && stty -ixon
 
 if hash apt-get 2>/dev/null; then
 	alias agi='apt-get install'
