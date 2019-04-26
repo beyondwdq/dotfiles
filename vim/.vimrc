@@ -10,6 +10,10 @@ if !exists("g:os")
     endif
 endif
 
+" Put plugins and dictionaries in this dir (also on Windows)
+let vimDir = '$HOME/.vim'
+let &runtimepath.=','.vimDir
+
 " pathogen
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
@@ -76,13 +80,25 @@ endif
     endif
 	" set encoding
 	set fileencodings=utf-8,gb2312
-	"set foldmethod
+	set foldmethod=syntax " enabling using 'z-a' to see the current function while keeping the cursor position
 	set foldlevel=1000
 	" Enable file type detection
 	filetype plugin indent on
 
     " Session {
         set sessionoptions=buffers
+    " }
+
+    " Undo history {
+        " Keep undo history across sessions by storing it in a file
+        if has('persistent_undo')
+            let myUndoDir = expand(vimDir . '/undodir')
+            " Create dirs
+            call system('mkdir ' . vimDir)
+            call system('mkdir ' . myUndoDir)
+            let &undodir = myUndoDir
+            set undofile
+        endif
     " }
 
 	" GUI {
