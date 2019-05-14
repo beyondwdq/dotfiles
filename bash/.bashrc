@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 set -o vi
 # Disable Software Control Flow (Ctrl-s locks screen)
@@ -18,6 +19,7 @@ fi
 if hash ack-grep 2>/dev/null; then
 	alias ack='ack-grep'
 fi
+alias find-ack=$DIR/find-ack.sh
 
 if hash vimx 2>/dev/null; then
 	alias vi='vimx'
