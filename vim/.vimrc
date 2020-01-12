@@ -367,6 +367,9 @@ endif
         let g:alternateExtensions_ipp = "inc,h,H,HPP,hpp"
         let g:alternateExtensions_h = "c,cpp,cxx,cc,CC,ipp"
 	" }
+    " CurtlineIncSw.vim {
+        map <leader>aa :call CurtineIncSw()<CR>
+    " }
 
 	" CScope & tags settings {
 		"set cscopequickfix=s-,c-,d-,i-,t-,e-
@@ -597,7 +600,7 @@ endif
 			if a:debug
 				let &makeprg="g++ -std=c++11 -Wall -g -O0 % -o " . expand("%:r")
 			else
-				let &makeprg="g++ -std=c++11 -Wall % -o " . expand("%:r")
+				let &makeprg="g++ -std=c++11 -fsanitize=undefined -Wall % -o " . expand("%:r")
 			endif
 			nnoremap <buffer> <leader>rr :exe '!\./'.expand("%:r")<cr>
 		endfunction

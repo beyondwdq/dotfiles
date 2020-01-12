@@ -30,3 +30,4 @@ https://github.com/scrooloose/nerdcommenter.git
 https://github.com/mileszs/ack.vim.git
 https://github.com/scrooloose/nerdtree.git
 https://github.com/yssl/QFEnter.git
+https://github.com/ericcurtin/CurtineIncSw.vim.git
