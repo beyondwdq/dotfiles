@@ -269,6 +269,7 @@ endif
 			au FileType python call s:SetPythonEnv()
 			au FileType tex call s:SetTexEnv()
 			au FileType cpp,c call s:SetCEnv()
+			au FileType sql call s:SetSqlEnv()
 			au FileType java call s:SetJavaEnv()
 			au FileType mp call s:SetMetapostEnv()
 			au FileType mkd call s:SetMarkDownEnv()
@@ -277,7 +278,7 @@ endif
 
 	" Auto-generates file heading
 	autocmd BufNewFile *.hpp,*.h,*.hh call AddCHeaderDefine()
-	autocmd BufNewFile *.py call AddHexPreamble()
+	" autocmd BufNewFile *.py call AddHexPreamble()
 
 	" Other auto commands
 	"autocmd InsertLeave *.py,*.hpp,*.cc,*.c,*.h write " autosave
@@ -491,11 +492,11 @@ endif
 	" }
 	" fugitive {
         nnoremap <leader>ga :Git add %:p<CR><CR>
-        nnoremap <leader>gs :Gstatus<CR>
-        nnoremap <leader>gt :Gcommit -v -q %:p<CR>
-        nnoremap <leader>gc :Gcommit -v -q<CR>
-        nnoremap <leader>gd :Gdiff<CR>
-        nnoremap <leader>gp :Gpush<CR>
+        nnoremap <leader>gs :Git<CR>
+        nnoremap <leader>gt :Git commit -v -q %:p<CR>
+        nnoremap <leader>gc :Git commit -v -q<CR>
+        nnoremap <leader>gd :Git diff<CR>
+        nnoremap <leader>gp :Git push<CR>
     " }
     " Ack {
         nmap <leader>jj :Ack! -w <C-R>=expand("<cword>")<CR> <C-R>=fnameescape(expand('%:h')).'/'<CR><C-B><C-Right><C-Right><C-Right>
@@ -609,6 +610,14 @@ endif
 		command! -nargs=0 -bar SingleCppDebug call s:SetSingleCpp(1)
 
 		function s:SetJavaEnv()
+			set wrap
+			set textwidth=0
+			set ts=4	
+			set sw=4
+			set expandtab
+		endfunction
+
+		function s:SetSqlEnv()
 			set wrap
 			set textwidth=0
 			set ts=4	
