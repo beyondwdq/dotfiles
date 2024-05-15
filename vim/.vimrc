@@ -273,6 +273,8 @@ endif
 			au FileType java call s:SetJavaEnv()
 			au FileType mp call s:SetMetapostEnv()
 			au FileType mkd call s:SetMarkDownEnv()
+			au FileType json call s:SetJsonEnv()
+			au FileType xml call s:SetXmlEnv()
 		endif
 	" }
 
@@ -578,6 +580,22 @@ endif
 
 		command! -nargs=0 -bar PythonWork call s:SetPythonEnv()
 
+		function s:SetJsonEnv()
+            set textwidth=0
+			set expandtab " always convert tab to spaces
+		endfunction
+
+		command! -nargs=0 -bar JsonWork call s:SetJsonEnv()
+
+		function s:SetXmlEnv()
+            set textwidth=0
+			set expandtab " always convert tab to spaces
+            let g:xml_syntax_folding=1
+            setlocal foldmethod=syntax
+		endfunction
+
+		command! -nargs=0 -bar XmlWork call s:SetXmlEnv()
+
 		function s:SetCEnv()
 			" supertab
 			"call s:EnableSupertab()
@@ -599,9 +617,9 @@ endif
 
 		function s:SetSingleCpp(debug)
 			if a:debug
-				let &makeprg="g++ -std=c++11 -Wall -g -O0 % -o " . expand("%:r")
+				let &makeprg="g++ -std=c++20 -Wall -g -O0 % -o " . expand("%:r")
 			else
-				let &makeprg="g++ -std=c++11 -fsanitize=undefined -Wall % -o " . expand("%:r")
+				let &makeprg="g++ -std=c++20 -fsanitize=undefined -Wall % -o " . expand("%:r")
 			endif
 			nnoremap <buffer> <leader>rr :exe '!\./'.expand("%:r")<cr>
 		endfunction

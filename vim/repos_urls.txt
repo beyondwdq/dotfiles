@@ -18,7 +18,8 @@ https://github.com/terryma/vim-expand-region.git
 https://github.com/SirVer/ultisnips.git
 https://github.com/honza/vim-snippets.git
 https://github.com/beyondwdq/more-snippets.git
-https://github.com/octol/vim-cpp-enhanced-highlight.git
+#https://github.com/octol/vim-cpp-enhanced-highlight.git
+https://github.com/bfrg/vim-cpp-modern
 https://github.com/vim-scripts/winmanager.git
 https://github.com/vim-scripts/a.vim
 https://github.com/vim-scripts/taglist.vim.git
@@ -33,3 +34,5 @@ https://github.com/yssl/QFEnter.git
 https://github.com/ericcurtin/CurtineIncSw.vim.git
 https://github.com/tpope/vim-tbone.git
 #https://github.com/morhetz/gruvbox.git 
+https://github.com/ruanyl/vim-gh-line.git
+https://github.com/psf/black.git
